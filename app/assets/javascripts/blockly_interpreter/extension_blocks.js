@@ -1,0 +1,1 @@
+//= require_tree './extension_blocks'

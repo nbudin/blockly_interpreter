@@ -1,0 +1,31 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+require "blockly_interpreter"
+
+program_name = ARGV[0]
+unless program_name
+  puts "Please specify a program name to compile."
+  exit!
+end
+
+module ConsoleDSL
+  def console_print(content = nil, &proc)
+    block :console_print do
+      value :VALUE do
+        if block_given?
+          instance_exec &proc
+        else
+          text content
+        end
+      end
+    end
+  end
+end
+BlocklyInterpreter::DSL::BlockContext.send :include, ConsoleDSL
+
+xml = BlocklyInterpreter::DSL.build_xml do
+  binding.eval(File.open(program_name).read, program_name)
+end
+
+STDOUT.write xml

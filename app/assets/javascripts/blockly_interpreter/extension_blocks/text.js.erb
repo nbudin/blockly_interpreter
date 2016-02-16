@@ -1,0 +1,21 @@
+'use strict';
+
+goog.provide('BlocklyInterpreter.ExtensionBlocks.text');
+goog.require('Blockly.Blocks');
+
+Blockly.Blocks['text_inflect'] = {
+  init: function() {
+    var inflections = <%= BlocklyInterpreter::ExtensionBlocks::TextInflectBlock::INFLECTIONS.to_json %>;
+    var dropdownOptions = _.map(inflections, function (inflection) {
+      return [inflection, inflection]
+    });
+
+    this.appendValueInput('TEXT')
+      .appendField(new Blockly.FieldDropdown(dropdownOptions), 'OP')
+      .appendField('text')
+      .setCheck('String');
+
+    this.setOutput(true, 'String');
+    this.setColour(Blockly.Blocks.texts.HUE);
+  }
+}

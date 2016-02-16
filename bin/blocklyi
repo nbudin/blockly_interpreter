@@ -1,0 +1,13 @@
+#!/usr/bin/env ruby
+
+require "bundler/setup"
+require "blockly_interpreter"
+
+program_name = ARGV[0]
+unless program_name
+  puts "Please specify a program name to run."
+  exit!
+end
+
+xml = File.open(program_name).read
+BlocklyInterpreter::ConsoleInterpreter.new(xml).execute
