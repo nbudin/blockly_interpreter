@@ -22,7 +22,7 @@ describe BlocklyInterpreter::CoreBlocks::TextChangeCaseBlock do
   it 'title-cases a string' do
     assert_outputs("X Men: The Last Stand") do
       string_output do
-        text_change_case("TITLECASE") { text 'x-men: the last stand' }
+        text_change_case("TITLECASE") { text 'x men: the last stand' }
       end
     end
   end
