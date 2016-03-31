@@ -1,4 +1,5 @@
 module BlocklyInterpreter::DSLGenerator
+  # Calls #flatten on an enumerable object recursively.  Any flattenable things inside obj will also be flattened.
   def deep_flatten(obj)
     if obj.respond_to?(:flatten)
       obj.flatten.map { |item| deep_flatten(item) }
@@ -7,10 +8,16 @@ module BlocklyInterpreter::DSLGenerator
     end
   end
 
+  # Given a piece of code as a string, removes any trailing whitespace from each line.
   def strip_trailing_whitespace(code)
     code.gsub(/[ \t]+$/, '')
   end
 
+  # Given a piece of code, indents it by `level` spaces.
+  #
+  # indent can accept code as a string (obviously), but can also accept a BlocklyInterpreter::Block, which will
+  # automatically be converted to a DSL string and then indented.  It can also accept Arrays consisting of strings,
+  # BlocklyInterpreter::Blocks, other arrays, and nil, which will be concatenated and indented.
   def indent(code, level = 2)
     lines = case code
     when String then code.split("\n")
@@ -22,6 +29,8 @@ module BlocklyInterpreter::DSLGenerator
     lines.map { |line| (" " * level) + line }.join("\n")
   end
 
+  # Generates a Ruby method call given a method name and an arguments string.  If `parens` is true, the arguments
+  # will be wrapped in parentheses; otherwise, the parentheses will be omitted.
   def method_call(method_name, args, parens = false)
     code = if parens
       method_name.dup.tap do |ruby|
@@ -34,10 +43,26 @@ module BlocklyInterpreter::DSLGenerator
     strip_trailing_whitespace(code)
   end
 
+  # Generates a Ruby method call with a block.  If `block_contents` is missing, generates the method call with the
+  # block omitted.  See `method_call_with_block_or_nothing` for argument descriptions.
   def method_call_with_possible_block(method_name, args, block_contents, *block_arg_names)
     method_call_with_block_or_nothing(method_name, args, block_contents, *block_arg_names) || method_call(method_name, args)
   end
 
+  # Generates a Ruby method call with a block.  If `block_contents` is missing, this method will return nil.
+  #
+  # Arguments:
+  # * `method_name` - the name of the method, as a string
+  # * `args` - an arguments string for the method call, or nil if there are no arguments
+  # * `block_contents` - an indentable object (i.e. a string, BlocklyInterpreter::Block, or array thereof)
+  # * `block_arg_names` - an arguments string for the argument names that will be passed to the block
+  #
+  # Example:
+  #
+  #     > puts method_call_with_block_or_nothing("each", nil, "puts i + 3", "i")
+  #     each do |i|
+  #       puts i + 3
+  #     end
   def method_call_with_block_or_nothing(method_name, args, block_contents, *block_arg_names)
     return unless block_contents.present?
 
@@ -61,14 +86,25 @@ DSL
     strip_trailing_whitespace(code)
   end
 
+  # Given a hash of keyword arguments to a method and a second hash containing that method's default arguments,
+  # returns a hash containing all the `keyword_args` omitting the ones that are already the method's default value
+  # for that argument.
+  #
+  # Example:
+  #
+  #     > keyword_args_without_defaults({ field_type: 'radio', placeholder_text: 'Enter an answer' }, { field_type: 'default', placeholder_text: 'Enter an answer' })
+  #     -> { field_type: 'radio' }
   def keyword_args_without_defaults(keyword_args, default_args)
     keyword_args.reject { |key, value| default_args[key] == value }
   end
 
+  # Given a hash of keyword arguments for a method call, returns a string containing those arguments as they should
+  # be passed to the method.
   def formatted_keyword_args(keyword_args)
     keyword_args.map { |key, value| "#{key}: #{value.inspect}" }.join(", ")
   end
 
+  # Given a BlocklyInterpreter::Block, returns a DSL string that will generate that block.
   def start_block_to_dsl(block)
     return "" unless block
 
@@ -96,6 +132,12 @@ DSL
     block_dsls.join("\n")
   end
 
+  # Given a Time object (or nil), generates a Ruby string representation of that object.
+  #
+  # Example:
+  #
+  #     > puts timestamp_to_dsl(Time.now)
+  #     Time.utc(2016, 3, 31, 11, 54, 24, 0, 0)
   def timestamp_to_dsl(time)
     return "nil" unless time
 
