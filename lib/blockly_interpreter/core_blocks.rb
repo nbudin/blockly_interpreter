@@ -12,6 +12,7 @@ module BlocklyInterpreter::CoreBlocks
   autoload :ListsCreateEmptyBlock
   autoload :ListsCreateWithBlock
   autoload :ListsGetIndexBlock
+  autoload :LogicNegateBlock
   autoload :LogicalOperatorBlock
   autoload :NumberBlock
   autoload :ProcedureBlock
@@ -37,6 +38,7 @@ module BlocklyInterpreter::CoreBlocks
     ListsCreateEmptyBlock,
     ListsCreateWithBlock,
     ListsGetIndexBlock,
+    LogicNegateBlock,
     LogicalOperatorBlock,
     NumberBlock,
     ProceduresCallNoReturnBlock,
