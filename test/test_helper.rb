@@ -60,8 +60,9 @@ class TestInterpreter < BlocklyInterpreter::Interpreter
   class ExecutionContext < BlocklyInterpreter::ExecutionContext
     attr_reader :content
 
-    def initialize(interpreter)
+    def initialize(interpreter, variables = {})
       super(interpreter)
+      set_variables variables
       @content = ""
     end
 
@@ -74,13 +75,19 @@ class TestInterpreter < BlocklyInterpreter::Interpreter
     end
   end
 
+  def initialize(program, variables = {})
+    super(program)
+    @variables = variables
+  end
+
   def content
     execute.content
   end
 
   def build_execution_context
-    TestInterpreter::ExecutionContext.new(self)
+    TestInterpreter::ExecutionContext.new(self, @variables)
   end
+
 end
 
 module InterpreterTestingMethods
@@ -88,10 +95,10 @@ module InterpreterTestingMethods
     mod.let(:parser) { BlocklyInterpreter::Parser.new }
   end
 
-  def assert_outputs(value, &block)
+  def assert_outputs(value, **variables, &block)
     xml = BlocklyInterpreter::DSL.build_xml(&block)
     program = parser.parse(xml)
-    TestInterpreter.new(program).content.must_equal value
+    TestInterpreter.new(program, variables).content.must_equal value
   end
 end
 
