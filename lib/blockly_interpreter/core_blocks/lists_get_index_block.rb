@@ -13,6 +13,8 @@ class BlocklyInterpreter::CoreBlocks::ListsGetIndexBlock < BlocklyInterpreter::B
 
   def value(execution_context)
     list = values['VALUE'].value(execution_context)
+    return unless list
+
     list_index = index(execution_context, list)
 
     value_at_index = list[list_index]
