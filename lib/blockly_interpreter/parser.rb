@@ -1,3 +1,5 @@
+require 'nokogiri'
+
 class BlocklyInterpreter::Parser
   class UnknownBlockTypeError < StandardError
   end

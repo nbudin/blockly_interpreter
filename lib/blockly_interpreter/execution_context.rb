@@ -1,3 +1,5 @@
+require 'logger'
+
 class BlocklyInterpreter::ExecutionContext
   attr_reader :interpreter, :early_return_value, :terminated, :debug_messages
 
@@ -63,8 +65,8 @@ class BlocklyInterpreter::ExecutionContext
 
   def add_debug_message(message)
     if message.present?
-      Logger.new(STDERR).debug message 
+      Logger.new(STDERR).debug message
       debug_messages << message
-    end 
+    end
   end
 end
