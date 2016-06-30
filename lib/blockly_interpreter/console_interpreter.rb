@@ -1,5 +1,5 @@
 class BlocklyInterpreter::ConsoleInterpreter < BlocklyInterpreter::Interpreter
-  class ConsolePrintBlock < BlocklyInterpreter::Interpreter::Block
+  class ConsolePrintBlock < BlocklyInterpreter::Block
     def execute_statement(execution_context)
       puts values['VALUE'].value(execution_context)
     end
