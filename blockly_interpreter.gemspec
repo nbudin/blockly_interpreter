@@ -7,7 +7,7 @@ Gem::Specification.new do |spec|
   spec.name          = "blockly_interpreter"
   spec.version       = BlocklyInterpreter::VERSION
   spec.authors       = ["Nat Budin"]
-  spec.email         = ["nbudin@patientslikeme.com"]
+  spec.email         = ["natbudin@gmail.com"]
 
   spec.summary       = %q{An interpreter for Blockly programs}
   spec.description   = %q{Blockly is a library from Google for building visual programming editors.  This gem is an interpreter for Blockly programs in Ruby.}

@@ -69,4 +69,4 @@ Bug reports and pull requests are welcome on GitHub at https://github.com/patien
 
 ## License
 
-blockly_interpreter Copyright &copy; PatientsLikeMe, Inc. and is distributed under the terms and conditions of the MIT License.  See the COPYING file for details.
+blockly_interpreter is Copyright &copy; Nat Budin and is distributed under the terms and conditions of the MIT License.  See the COPYING file for details.
