@@ -1,5 +1,8 @@
 # blockly_interpreter
 
+[![Gem Version](https://badge.fury.io/rb/blockly_interpreter.svg)](https://badge.fury.io/rb/blockly_interpreter)
+[![Build Status](https://travis-ci.org/nbudin/blockly_interpreter.svg?branch=master)](https://travis-ci.org/nbudin/blockly_interpreter)
+
 An interpreter for [Blockly](https://developers.google.com/blockly/) programs, written in Ruby.  blockly_interpreter provides:
 
 * Implementations of most (but not all) of the blocks that Blockly ships with
