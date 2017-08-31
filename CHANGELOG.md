@@ -1,3 +1,7 @@
+## Version 0.2.1 - August 31, 2017
+
+* Rails 5 compatibility fix (thanks, @mdeutsch!)
+
 ## Version 0.2.0 - August 16, 2016
 
 * Initial public release.
