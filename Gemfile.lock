@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    blockly_interpreter (0.2.1)
+    blockly_interpreter (0.3.0)
       activesupport
       nokogiri
 
@@ -38,7 +38,7 @@ GEM
       rb-inotify (>= 0.9.7)
     lumberjack (1.0.10)
     method_source (0.8.2)
-    mini_portile2 (2.2.0)
+    mini_portile2 (2.3.0)
     minitest (5.8.4)
     minitest-reporters (1.1.8)
       ansi
@@ -46,8 +46,8 @@ GEM
       minitest (>= 5.0)
       ruby-progressbar
     nenv (0.3.0)
-    nokogiri (1.8.0)
-      mini_portile2 (~> 2.2.0)
+    nokogiri (1.8.1)
+      mini_portile2 (~> 2.3.0)
     notiffany (0.0.8)
       nenv (~> 0.1)
       shellany (~> 0.0)
